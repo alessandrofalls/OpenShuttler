@@ -12,6 +12,12 @@ cask "openshuttler" do
 
   app "OpenShuttler.app"
 
+  postflight do
+    system_command "/usr/bin/xattr",
+                   args: ["-d", "-r", "com.apple.quarantine", "#{appdir}/OpenShuttler.app"],
+                   sudo: false
+  end
+
   zap trash: [
     "~/.config/openshuttler",
   ]
