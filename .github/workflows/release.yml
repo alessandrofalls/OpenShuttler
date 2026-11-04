@@ -19,13 +19,15 @@ jobs:
       - name: Run Tests
         run: swift test
 
-      - name: Build Application and Create Zip
-        run: ./build.sh --zip
+      - name: Build Application and Create Release Packages (DMG & ZIP)
+        run: ./build.sh --package
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: build/OpenShuttler-macOS-arm64.zip
+          files: |
+            build/OpenShuttler-macOS-arm64.dmg
+            build/OpenShuttler-macOS-arm64.zip
           name: OpenShuttler ${{ github.ref_name }}
           draft: false
           prerelease: false

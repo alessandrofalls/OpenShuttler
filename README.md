@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/alessandrodourado/openshuttler/releases/latest"><img src="https://img.shields.io/github/v/release/alessandrodourado/openshuttler?label=Download&color=blue" alt="Latest Release" /></a>
+  <a href="https://github.com/alessandrofalls/openshuttler/releases/latest"><img src="https://img.shields.io/github/v/release/alessandrofalls/openshuttler?label=Download&color=blue" alt="Latest Release" /></a>
   <img src="https://img.shields.io/badge/platform-macOS%2013%2B-blue" alt="Platform" />
   <img src="https://img.shields.io/badge/arch-Apple%20Silicon%20%28M1--M4%29-purple" alt="Apple Silicon" />
   <img src="https://img.shields.io/badge/swift-6.0-orange" alt="Swift 6" />
@@ -39,15 +39,15 @@
 
 ## 📥 Download & Installation
 
-### Option 1: Direct Download (Prebuilt Binary) — Recommended
+### Option 1: Direct Download (DMG or ZIP) — Recommended
 
 No developer tools or terminal commands required:
 
-1. Go to the [**Releases**](https://github.com/alessandrodourado/openshuttler/releases/latest) page.
-2. Download the latest `OpenShuttler-macOS-arm64.zip`.
-3. Double-click the `.zip` archive to extract `OpenShuttler.app`.
-4. Drag `OpenShuttler.app` into your **Applications** folder (`/Applications` or `~/Applications`).
-5. Open the app. The terminal icon (`>_`) will appear in your top macOS menu bar.
+1. Go to the [**Releases**](https://github.com/alessandrofalls/openshuttler/releases/latest) page.
+2. Download either package:
+   * **`OpenShuttler-macOS-arm64.dmg`** *(Recommended)*: Open the disk image and drag **OpenShuttler** to your **Applications** folder.
+   * **`OpenShuttler-macOS-arm64.zip`**: Extract the archive and place `OpenShuttler.app` into `/Applications`.
+3. Open **OpenShuttler**. The terminal icon (`>_`) will appear in your top macOS menu bar.
 
 > [!NOTE]
 > **First-Launch macOS Gatekeeper Notice:**  

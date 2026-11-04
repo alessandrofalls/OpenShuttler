@@ -1,6 +1,6 @@
 #!/bin/zsh
 # Builds and packages OpenShuttler.app
-# Usage: ./build.sh [--install] [--zip]
+# Usage: ./build.sh [--install] [--zip] [--dmg] [--package]
 # Optional env var: SWIFTPM_FLAGS="--disable-sandbox"
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -22,11 +22,27 @@ plutil -lint "$APP/Contents/Info.plist" >/dev/null
 codesign --force --sign - "$APP"
 echo "✅ Built: $APP"
 
-if [[ "${*:-}" =~ "--zip" ]]; then
+if [[ "${*:-}" =~ "--zip" || "${*:-}" =~ "--package" ]]; then
     ZIP="build/OpenShuttler-macOS-arm64.zip"
     rm -f "$ZIP"
     (cd build && zip -q -r "OpenShuttler-macOS-arm64.zip" "OpenShuttler.app")
     echo "📦 Release archive ready: $ZIP"
+fi
+
+if [[ "${*:-}" =~ "--dmg" || "${*:-}" =~ "--package" ]]; then
+    DMG="build/OpenShuttler-macOS-arm64.dmg"
+    DMG_TMP="build/dmg-staging"
+    rm -rf "$DMG" "$DMG_TMP"
+    mkdir -p "$DMG_TMP"
+    cp -R "$APP" "$DMG_TMP/"
+    ln -s /Applications "$DMG_TMP/Applications"
+
+    hdiutil create -volname "OpenShuttler" \
+                   -srcfolder "$DMG_TMP" \
+                   -ov -format UDZO \
+                   "$DMG" >/dev/null
+    rm -rf "$DMG_TMP"
+    echo "💿 Disk image ready: $DMG"
 fi
 
 if [[ "${*:-}" =~ "--install" ]]; then
