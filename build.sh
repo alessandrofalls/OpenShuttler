@@ -45,6 +45,12 @@ if [[ "${*:-}" =~ "--dmg" || "${*:-}" =~ "--package" ]]; then
     echo "💿 Disk image ready: $DMG"
 fi
 
+if [[ "${*:-}" =~ "--package" || ("${*:-}" =~ "--zip" && "${*:-}" =~ "--dmg") ]]; then
+    CHECKSUMS="build/SHA256SUMS.txt"
+    (cd build && shasum -a 256 OpenShuttler-macOS-arm64.* > "SHA256SUMS.txt")
+    echo "🔐 Generated checksums: $CHECKSUMS"
+fi
+
 if [[ "${*:-}" =~ "--install" ]]; then
     mkdir -p "$HOME/Applications"
     pkill -x OpenShuttler 2>/dev/null || true

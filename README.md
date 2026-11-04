@@ -11,9 +11,11 @@
 
 <p align="center">
   <a href="https://github.com/alessandrofalls/openshuttler/releases/latest"><img src="https://img.shields.io/github/v/release/alessandrofalls/openshuttler?label=Download&color=blue" alt="Latest Release" /></a>
+  <a href="https://github.com/alessandrofalls/openshuttler/actions/workflows/codeql.yml"><img src="https://github.com/alessandrofalls/openshuttler/actions/workflows/codeql.yml/badge.svg" alt="CodeQL Security Scan" /></a>
   <img src="https://img.shields.io/badge/platform-macOS%2013%2B-blue" alt="Platform" />
   <img src="https://img.shields.io/badge/arch-Apple%20Silicon%20%28M1--M4%29-purple" alt="Apple Silicon" />
   <img src="https://img.shields.io/badge/swift-6.0-orange" alt="Swift 6" />
+  <img src="https://img.shields.io/badge/security-audited-brightgreen" alt="Security Audited" />
   <img src="https://img.shields.io/badge/license-MIT-green" alt="License" />
 </p>
 
@@ -260,6 +262,19 @@ To run the full unit test suite:
 ```zsh
 swift test
 ```
+
+---
+
+## 🔒 Security & Privacy Guarantees
+
+Because OpenShuttler manages SSH connections, security and transparency are fundamental:
+
+* 🛡️ **Zero External Dependencies:** Built exclusively using Apple's official native frameworks (`Foundation`, `AppKit`, `OSLog`). No third-party pods, npm, or precompiled binary blobs that could introduce supply-chain vulnerabilities.
+* 🌐 **100% Offline & Zero Telemetry:** Contains zero analytics, tracking, or network HTTP libraries. All network operations are conducted exclusively through your system's native `/usr/bin/ssh` binary.
+* 🔑 **Zero Private Key Access:** OpenShuttler **never** reads, inspects, or caches private cryptographic keys (`id_rsa`, `id_ed25519`). It merely forwards the key path reference (`-i ~/.ssh/key`) to OpenSSH.
+* 🛡️ **Strict POSIX Sanitization:** Host aliases, usernames, and commands are rigorously quoted and escaped to prevent command injection vulnerabilities.
+* 🤖 **Automated Security Scanning:** Every pull request and release is automatically audited by [GitHub CodeQL](https://github.com/alessandrofalls/OpenShuttler/security/code-scanning) for static analysis and security vulnerabilities.
+* 🔐 **Cryptographic Verification:** Every release includes verifiable `SHA256SUMS.txt` hashes for binary integrity verification.
 
 ---
 

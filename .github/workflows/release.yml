@@ -28,6 +28,7 @@ jobs:
           files: |
             build/OpenShuttler-macOS-arm64.dmg
             build/OpenShuttler-macOS-arm64.zip
+            build/SHA256SUMS.txt
           name: OpenShuttler ${{ github.ref_name }}
           draft: false
           prerelease: false
