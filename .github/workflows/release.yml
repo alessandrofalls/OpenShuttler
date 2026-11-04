@@ -22,6 +22,25 @@ jobs:
       - name: Build Application and Create Release Packages (DMG & ZIP)
         run: ./build.sh --package
 
+      - name: Update Homebrew Cask with release SHA-256
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          SHA=$(shasum -a 256 build/OpenShuttler-macOS-arm64.zip | awk '{print $1}')
+          
+          # Update version and sha256 in Casks/openshuttler.rb
+          sed -i '' "s/version \".*\"/version \"${VERSION}\"/" Casks/openshuttler.rb
+          sed -i '' "s/sha256 \".*\"/sha256 \"${SHA}\"/" Casks/openshuttler.rb
+
+          # Commit updated cask back to main branch
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout main || git checkout -b main
+          git add Casks/openshuttler.rb
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(cask): bump openshuttler to ${VERSION} with automated sha256 [skip ci]"
+            git push origin main
+          fi
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:

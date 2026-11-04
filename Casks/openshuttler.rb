@@ -1,6 +1,6 @@
 cask "openshuttler" do
   version "1.0.4"
-  sha256 "6c6211e84b448e866d781ee05d92e9bca57cbf4e11c0c48fa941a64981673bac"
+  sha256 "21381dded90d13b9b6ada47904e96921dd52c0c6f61c273631d40966524b57f5"
 
   url "https://github.com/alessandrofalls/OpenShuttler/releases/download/v#{version}/OpenShuttler-macOS-arm64.zip"
   name "OpenShuttler"
@@ -12,14 +12,7 @@ cask "openshuttler" do
 
   app "OpenShuttler.app"
 
-  postflight do
-    system_command "/usr/bin/xattr",
-                   args: ["-d", "-r", "com.apple.quarantine", "#{appdir}/OpenShuttler.app"],
-                   sudo: false
-  end
-
   zap trash: [
     "~/.config/openshuttler",
   ]
 end
-
