@@ -1,7 +1,7 @@
 # OpenShuttler
 
 <p align="center">
-  <img src="build/AppIcon.iconset/icon_256x256.png" width="128" height="128" alt="OpenShuttler Logo" />
+  <img src="docs/assets/logo.png" width="140" height="140" alt="OpenShuttler Logo" />
 </p>
 
 <p align="center">
