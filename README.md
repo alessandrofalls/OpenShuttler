@@ -46,8 +46,11 @@
 The cleanest and fastest way to install OpenShuttler on macOS without Gatekeeper prompts:
 
 ```zsh
-# Tap the repository and install OpenShuttler
-brew install --cask alessandrofalls/openshuttler/openshuttler
+# Tap the repository
+brew tap alessandrofalls/openshuttler https://github.com/alessandrofalls/openshuttler
+
+# Install OpenShuttler
+brew install --cask openshuttler
 ```
 
 To update in the future:
