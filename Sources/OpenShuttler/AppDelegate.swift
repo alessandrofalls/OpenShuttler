@@ -22,6 +22,21 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         item.menu = menu
         statusItem = item
         rebuild(menu)
+
+        // Show welcome window on first launch
+        if WelcomeWindowController.shouldShowOnLaunch {
+            WelcomeWindowController.shared.show()
+        }
+    }
+
+    // Called when the user clicks the app icon in Finder/Dock while it is already running.
+    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+        if let button = statusItem?.button {
+            button.performClick(nil)
+        } else {
+            WelcomeWindowController.shared.show()
+        }
+        return true
     }
 
     // Rebuilds the menu on open; ConfigStore only re-reads disk if files changed.
@@ -66,6 +81,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
                     editor: editor,
                     terminalApp: terminalApp
                 )
+            },
+            showWelcome: {
+                WelcomeWindowController.shared.show()
             },
             toggleLogin: {
                 do {

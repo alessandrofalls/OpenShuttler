@@ -22,6 +22,7 @@ struct MenuActions {
     var launch: @MainActor (Server) -> Void
     var editSSHConfig: @MainActor () -> Void
     var editConfig: @MainActor () -> Void
+    var showWelcome: @MainActor () -> Void
     var toggleLogin: @MainActor () -> Void
     var quit: @MainActor () -> Void
 }
@@ -69,6 +70,7 @@ enum MenuBuilder {
         menu.addItem(.separator())
         menu.addItem(ActionMenuItem(title: "Edit ~/.ssh/config…", keyEquivalent: "e", handler: actions.editSSHConfig))
         menu.addItem(ActionMenuItem(title: "Edit App Preferences…", keyEquivalent: ",", handler: actions.editConfig))
+        menu.addItem(ActionMenuItem(title: "Welcome Guide…", handler: actions.showWelcome))
         let login = ActionMenuItem(title: "Launch at Login", handler: actions.toggleLogin)
         login.state = loginEnabled ? .on : .off
         menu.addItem(login)

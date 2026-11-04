@@ -37,24 +37,57 @@
 
 ---
 
-## 📥 Download & Installation
+## 📥 Installation
 
-### Option 1: Direct Download (DMG or ZIP) — Recommended
+### Option 1: Homebrew Cask (Recommended)
 
-No developer tools or terminal commands required:
+The cleanest and fastest way to install OpenShuttler on macOS without Gatekeeper prompts:
 
-1. Go to the [**Releases**](https://github.com/alessandrofalls/openshuttler/releases/latest) page.
+```zsh
+# Tap the repository and install OpenShuttler
+brew install --cask alessandrofalls/openshuttler/openshuttler
+```
+
+To update in the future:
+```zsh
+brew upgrade --cask openshuttler
+```
+
+---
+
+### Option 2: Direct Download (DMG or ZIP)
+
+No terminal required:
+
+1. Go to the [**Releases**](https://github.com/alessandrofalls/OpenShuttler/releases/latest) page.
 2. Download either package:
-   * **`OpenShuttler-macOS-arm64.dmg`** *(Recommended)*: Open the disk image and drag **OpenShuttler** to your **Applications** folder.
+   * **`OpenShuttler-macOS-arm64.dmg`**: Open the disk image and drag **OpenShuttler** to your **Applications** folder.
    * **`OpenShuttler-macOS-arm64.zip`**: Extract the archive and place `OpenShuttler.app` into `/Applications`.
 3. Open **OpenShuttler**. The terminal icon (`>_`) will appear in your top macOS menu bar.
 
 > [!NOTE]
-> **First-Launch macOS Gatekeeper Notice:**  
-> Because OpenShuttler is an open-source tool distributed outside the Mac App Store without an Apple Developer ID signature ($99/yr), macOS may display a prompt stating the developer cannot be verified on the first run.
-> 
-> * **Standard approach:** Right-click (or Control-click) `OpenShuttler.app` in Finder, choose **Open**, and click **Open** in the dialog. macOS remembers this choice and opens the app normally from then on.
-> * **Terminal approach (alternative):** If preferred, remove the quarantine attribute with:
+> ### 🛡️ First-Launch Notice: macOS Gatekeeper ("Cannot verify developer")
+> Because OpenShuttler is a community open-source utility distributed without an Apple Developer ID signature (\$99/year), macOS Gatekeeper displays a security alert on the first launch:
+>
+> <p align="center">
+>   <img src="docs/assets/gatekeeper_dialog.jpg" width="280" alt="macOS Gatekeeper Alert" /><br>
+>   <i>"Apple could not verify 'OpenShuttler' is free of malware..."</i>
+> </p>
+>
+> You only need to approve it once using any of these simple methods:
+>
+> * **Method 1: Control-Click / Right-Click (Fastest & GUI)**:
+>   1. Click **Done** on the alert (do not click *Move to Trash*).
+>   2. Open Finder and go to your **Applications** folder.
+>   3. Hold **Control** and click (or right-click) `OpenShuttler.app` and choose **Open**.
+>   4. Click **Open** in the confirmation dialog. macOS will remember this decision permanently.
+>
+> * **Method 2: System Settings**:
+>   1. Open macOS **System Settings** > **Privacy & Security**.
+>   2. Scroll down to the **Security** section where OpenShuttler is listed as blocked.
+>   3. Click **Open Anyway**.
+>
+> * **Method 3: Terminal (One command)**:
 >   ```zsh
 >   xattr -d com.apple.quarantine /Applications/OpenShuttler.app
 >   ```
