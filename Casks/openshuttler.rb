@@ -8,7 +8,7 @@ cask "openshuttler" do
   homepage "https://github.com/alessandrofalls/OpenShuttler"
 
   depends_on arch: :arm64
-  depends_on macos: ">= :ventura"
+  depends_on macos: :ventura
 
   app "OpenShuttler.app"
 
