@@ -82,22 +82,18 @@ No terminal required:
 >   <i>"Apple could not verify 'OpenShuttler' is free of malware..."</i>
 > </p>
 >
-> You only need to approve it once using any of these simple methods:
+> You only need to approve it once on your Mac using either method:
 >
-> * **Method 1: Control-Click / Right-Click (Fastest & GUI)**:
+> * **Method 1: System Settings (Standard GUI)**:
 >   1. Click **Done** on the alert (do not click *Move to Trash*).
->   2. Open Finder and go to your **Applications** folder.
->   3. Hold **Control** and click (or right-click) `OpenShuttler.app` and choose **Open**.
->   4. Click **Open** in the confirmation dialog. macOS will remember this decision permanently.
+>   2. Open macOS **System Settings** > **Privacy & Security**.
+>   3. Scroll down to the **Security** section where OpenShuttler is listed as blocked.
+>   4. Click **Open Anyway**, authenticate with Touch ID / Password, and confirm by clicking **Open**.
+>   5. macOS will permanently whitelist the app.
 >
-> * **Method 2: System Settings**:
->   1. Open macOS **System Settings** > **Privacy & Security**.
->   2. Scroll down to the **Security** section where OpenShuttler is listed as blocked.
->   3. Click **Open Anyway**.
->
-> * **Method 3: Terminal (One command)**:
+> * **Method 2: Terminal (One quick command)**:
 >   ```zsh
->   xattr -d com.apple.quarantine /Applications/OpenShuttler.app
+>   xattr -d -r com.apple.quarantine /Applications/OpenShuttler.app
 >   ```
 
 > [!IMPORTANT]
