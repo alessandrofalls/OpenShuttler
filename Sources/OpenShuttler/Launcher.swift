@@ -10,7 +10,12 @@ enum Launcher {
     static func launch(_ server: Server, terminalApp: String?, openIn: String = "new") {
         switch LaunchPlanner.plan(for: server, terminalApp: terminalApp, openIn: openIn) {
         case .appleScript(let source):
-            runAppleScript(source, failureTitle: "Unable to launch \"\(server.name)\"")
+            runAppleScript(source, failureTitle: "Unable to launch \"\(server.name)\"") {
+                // If AppleScript fails (e.g. System Events keystrokes denied/not allowed),
+                // gracefully fall back to opening a dedicated window without showing an error popup!
+                Log.launch.warning("AppleScript failed or denied; falling back to direct window launch for \(server.name)")
+                launchDirectly(server, terminalApp: terminalApp)
+            }
 
         case .openURL(let url):
             Log.launch.info("Opening \(url.absoluteString, privacy: .private)")
@@ -21,18 +26,39 @@ enum Launcher {
                 )
             }
         case .script(let contents):
-            do {
-                let file = try writeScript(contents)
-                open(["-a", terminalApp ?? "Terminal", file.path], failureTitle: "Unable to launch \"\(server.name)\"")
-            } catch {
-                Log.launch.error("Failed to create script: \(error.localizedDescription)")
-                Alerts.show(title: "Unable to launch \"\(server.name)\"", message: error.localizedDescription)
-            }
+            launchScript(contents, terminalApp: terminalApp, failureTitle: "Unable to launch \"\(server.name)\"")
+        }
+    }
+
+    private static func launchDirectly(_ server: Server, terminalApp: String?) {
+        let command = LaunchPlanner.commandString(for: server)
+        let line: String
+        switch server.kind {
+        case .shell:
+            line = command
+        case .ssh:
+            line = "exec " + command
+        }
+        let scriptContent = LaunchPlanner.script(title: server.name, command: line)
+        launchScript(scriptContent, terminalApp: terminalApp, failureTitle: "Unable to launch \"\(server.name)\"")
+    }
+
+    private static func launchScript(_ contents: String, terminalApp: String?, failureTitle: String) {
+        do {
+            let file = try writeScript(contents)
+            open(["-a", terminalApp ?? "Terminal", file.path], failureTitle: failureTitle)
+        } catch {
+            Log.launch.error("Failed to create script: \(error.localizedDescription)")
+            Alerts.show(title: failureTitle, message: error.localizedDescription)
         }
     }
 
     /// Executes an AppleScript via /usr/bin/osascript asynchronously.
-    static func runAppleScript(_ source: String, failureTitle: String) {
+    static func runAppleScript(
+        _ source: String,
+        failureTitle: String,
+        fallback: (@MainActor () -> Void)? = nil
+    ) {
         let process = Process()
         process.executableURL = URL(fileURLWithPath: "/usr/bin/osascript")
         process.arguments = ["-e", source]
@@ -44,16 +70,24 @@ enum Launcher {
             let text = String(data: data, encoding: .utf8)?.trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
             Task { @MainActor in
                 Log.launch.error("osascript failed: \(text)")
-                Alerts.show(
-                    title: failureTitle,
-                    message: text.isEmpty ? "Failed to execute terminal script." : text
-                )
+                if let fallback {
+                    fallback()
+                } else {
+                    Alerts.show(
+                        title: failureTitle,
+                        message: text.isEmpty ? "Failed to execute terminal script." : text
+                    )
+                }
             }
         }
         do {
             try process.run()
         } catch {
-            Alerts.show(title: failureTitle, message: error.localizedDescription)
+            if let fallback {
+                fallback()
+            } else {
+                Alerts.show(title: failureTitle, message: error.localizedDescription)
+            }
         }
     }
 
