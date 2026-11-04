@@ -1,6 +1,6 @@
 cask "openshuttler" do
-  version "1.0.3"
-  sha256 "464e8bddaab31fd9817b3c21fd180b0af76e6327812f4f01f5f080f6a1f2a72c"
+  version "1.0.4"
+  sha256 "6c6211e84b448e866d781ee05d92e9bca57cbf4e11c0c48fa941a64981673bac"
 
   url "https://github.com/alessandrofalls/OpenShuttler/releases/download/v#{version}/OpenShuttler-macOS-arm64.zip"
   name "OpenShuttler"

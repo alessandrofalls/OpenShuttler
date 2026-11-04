@@ -7,7 +7,7 @@ enum Launcher {
     private static let scriptDirectory = FileManager.default.temporaryDirectory
         .appendingPathComponent("openshuttler", isDirectory: true)
 
-    static func launch(_ server: Server, terminalApp: String?, openIn: String = "tab") {
+    static func launch(_ server: Server, terminalApp: String?, openIn: String = "new") {
         switch LaunchPlanner.plan(for: server, terminalApp: terminalApp, openIn: openIn) {
         case .appleScript(let source):
             runAppleScript(source, failureTitle: "Unable to launch \"\(server.name)\"")

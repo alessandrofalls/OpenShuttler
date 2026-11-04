@@ -76,7 +76,7 @@ public struct AppConfig: Equatable, Sendable {
     public var version: Int
     /// Load hosts from `~/.ssh/config`.
     public var sshConfigHosts: SSHConfigOptions
-    /// Terminal launch mode: "tab" (new tab), "current" (active tab), "new" (new window).
+    /// Terminal launch mode: "new" (new window, zero permissions needed), "tab" (new tab), "current" (active tab).
     public var openIn: String
     /// Terminal app to use: "Terminal" or "iTerm". If nil, uses default system terminal.
     public var terminalApp: String?
@@ -87,7 +87,7 @@ public struct AppConfig: Equatable, Sendable {
     public init(
         version: Int = AppConfig.currentVersion,
         sshConfigHosts: SSHConfigOptions = .init(),
-        openIn: String = "tab",
+        openIn: String = "new",
         terminalApp: String? = nil,
         editor: String? = nil,
         entries: [MenuEntry] = []
@@ -141,7 +141,7 @@ extension AppConfig: Codable {
         self.init(
             version: version,
             sshConfigHosts: try c.decodeIfPresent(SSHConfigOptions.self, forKey: .sshConfigHosts) ?? .init(),
-            openIn: try c.decodeIfPresent(String.self, forKey: .openIn) ?? "tab",
+            openIn: try c.decodeIfPresent(String.self, forKey: .openIn) ?? "new",
             terminalApp: try c.decodeIfPresent(String.self, forKey: .terminalApp),
             editor: try c.decodeIfPresent(String.self, forKey: .editor),
             entries: entries

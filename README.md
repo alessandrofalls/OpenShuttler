@@ -186,7 +186,7 @@ To open preferences, click the menu bar icon and select **Edit App Preferencesâ€
 ```json
 {
   "version": 1,
-  "openIn": "tab",
+  "openIn": "new",
   "sshConfigHosts": {
     "enabled": true,
     "ignoreHosts": [],
@@ -200,7 +200,7 @@ To open preferences, click the menu bar icon and select **Edit App Preferencesâ€
 
 | Setting | Options | Description |
 |---|---|---|
-| `openIn` | `"tab"`, `"current"`, `"new"` | Window opening behavior: `"tab"` (opens a new tab if a terminal window is already open; otherwise creates a new window), `"current"` (injects command into the active tab), or `"new"` (always creates a new window). Default: `"tab"`. |
+| `openIn` | `"new"`, `"tab"`, `"current"` | Window opening behavior: `"new"` (Default: dedicated clean window, **zero macOS permissions or accessibility prompts required**), `"tab"` (opens in a new tab; requires macOS Apple Events automation permission), or `"current"` (injects into the active tab). |
 | `sshConfigHosts.enabled` | `true`, `false` | When `true`, automatically parses servers from `~/.ssh/config`. Set to `false` if you only want to load servers defined in the JSON file. Default: `true`. |
 | `sshConfigHosts.ignoreHosts` | `["host1", ...]` | List of SSH host aliases to exclude from the menu. |
 | `sshConfigHosts.ignoreKeywords` | `["tmp", ...]` | Substrings to ignore: hides any host alias containing these words. |

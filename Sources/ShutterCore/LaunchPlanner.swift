@@ -48,7 +48,7 @@ public enum LaunchPlanner {
     public static func plan(
         for server: Server,
         terminalApp: String?,
-        openIn: String = "tab",
+        openIn: String = "new",
         homeDirectory: String = NSHomeDirectory()
     ) -> LaunchPlan {
         let command = commandString(for: server, homeDirectory: homeDirectory)

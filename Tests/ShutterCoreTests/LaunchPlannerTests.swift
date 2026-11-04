@@ -41,10 +41,19 @@ final class LaunchPlannerTests: XCTestCase {
         XCTAssertTrue(script.contains("ssh -- bastion"))
     }
 
-    func testDefaultModeOpensNewTabInTerminal() throws {
+    func testDefaultModeUsesNewWindow() throws {
         let s = server(try SSHTarget(host: "bastion"))
-        guard case .appleScript(let script) = LaunchPlanner.plan(for: s, terminalApp: nil) else {
-            return XCTFail("esperava appleScript")
+        guard case .openURL(let url) = LaunchPlanner.plan(for: s, terminalApp: nil) else {
+            return XCTFail("expected openURL in default new mode")
+        }
+        XCTAssertEqual(url.scheme, "ssh")
+        XCTAssertEqual(url.host, "bastion")
+    }
+
+    func testTabModeOpensNewTabInTerminal() throws {
+        let s = server(try SSHTarget(host: "bastion"))
+        guard case .appleScript(let script) = LaunchPlanner.plan(for: s, terminalApp: nil, openIn: "tab") else {
+            return XCTFail("expected appleScript for tab mode")
         }
         XCTAssertTrue(script.contains("tell application \"Terminal\""))
         XCTAssertTrue(script.contains("keystroke \"t\" using command down"))
