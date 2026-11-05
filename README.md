@@ -12,6 +12,7 @@
 <p align="center">
   <a href="https://github.com/alessandrofalls/openshuttler/releases/latest"><img src="https://img.shields.io/github/v/release/alessandrofalls/openshuttler?label=Download&color=blue" alt="Latest Release" /></a>
   <a href="https://github.com/alessandrofalls/openshuttler/actions/workflows/codeql.yml"><img src="https://github.com/alessandrofalls/openshuttler/actions/workflows/codeql.yml/badge.svg" alt="CodeQL Security Scan" /></a>
+  <a href="https://github.com/alessandrofalls/OpenShuttler/attestations"><img src="https://img.shields.io/badge/provenance-attested-blue" alt="Artifact Attestation" /></a>
   <img src="https://img.shields.io/badge/platform-macOS%2013%2B-blue" alt="Platform" />
   <img src="https://img.shields.io/badge/arch-Apple%20Silicon%20%28M1--M4%29-purple" alt="Apple Silicon" />
   <img src="https://img.shields.io/badge/swift-6.0-orange" alt="Swift 6" />
@@ -277,6 +278,10 @@ Because OpenShuttler manages SSH connections, security and transparency are fund
 * 🛡️ **Strict POSIX Sanitization:** Host aliases, usernames, and commands are rigorously quoted and escaped to prevent command injection vulnerabilities.
 * 🤖 **Automated Security Scanning:** Every pull request and release is automatically audited by [GitHub CodeQL](https://github.com/alessandrofalls/OpenShuttler/security/code-scanning) for static analysis and security vulnerabilities.
 * 🔐 **Cryptographic Verification:** Every release includes verifiable `SHA256SUMS.txt` hashes for binary integrity verification.
+* 🔏 **Artifact Attestations (Sigstore):** Release packages are cryptographically signed and attested by GitHub Actions to guarantee supply-chain integrity. Anyone can verify build provenance via:
+  ```zsh
+  gh attestation verify OpenShuttler-macOS-arm64.dmg --owner alessandrofalls
+  ```
 
 ---
 

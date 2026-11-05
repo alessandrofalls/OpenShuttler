@@ -7,6 +7,8 @@ on:
 
 permissions:
   contents: write
+  id-token: write
+  attestations: write
 
 jobs:
   build-and-release:
@@ -40,6 +42,13 @@ jobs:
             git commit -m "chore(cask): bump openshuttler to ${VERSION} with automated sha256 [skip ci]"
             git push origin main
           fi
+
+      - name: Generate Artifact Attestations (Sigstore Provenance)
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: |
+            build/OpenShuttler-macOS-arm64.dmg
+            build/OpenShuttler-macOS-arm64.zip
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
