@@ -13,6 +13,7 @@
   <a href="https://github.com/alessandrofalls/openshuttler/releases/latest"><img src="https://img.shields.io/github/v/release/alessandrofalls/openshuttler?label=Download&color=blue" alt="Latest Release" /></a>
   <a href="https://github.com/alessandrofalls/openshuttler/actions/workflows/codeql.yml"><img src="https://github.com/alessandrofalls/openshuttler/actions/workflows/codeql.yml/badge.svg" alt="CodeQL Security Scan" /></a>
   <a href="https://github.com/alessandrofalls/OpenShuttler/attestations"><img src="https://img.shields.io/badge/provenance-attested-blue" alt="Artifact Attestation" /></a>
+  <a href="https://github.com/sponsors/alessandrofalls"><img src="https://img.shields.io/badge/sponsor-GitHub%20Sponsors-pink" alt="GitHub Sponsors" /></a>
   <img src="https://img.shields.io/badge/platform-macOS%2013%2B-blue" alt="Platform" />
   <img src="https://img.shields.io/badge/arch-Apple%20Silicon%20%28M1--M4%29-purple" alt="Apple Silicon" />
   <img src="https://img.shields.io/badge/swift-6.0-orange" alt="Swift 6" />
@@ -282,6 +283,14 @@ Because OpenShuttler manages SSH connections, security and transparency are fund
   ```zsh
   gh attestation verify OpenShuttler-macOS-arm64.dmg --owner alessandrofalls
   ```
+
+---
+
+## 💖 Support & Sponsoring
+
+OpenShuttler is free and open-source software built for the macOS community. If you find it useful and would like to support continuous maintenance, or help fund our **Apple Developer Program license ($99/year)** to provide fully notarized macOS builds without Gatekeeper prompts:
+
+👉 **[Sponsor @alessandrofalls on GitHub](https://github.com/sponsors/alessandrofalls)**
 
 ---
 
